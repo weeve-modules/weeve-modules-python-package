@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling", "requests", "bottle"]
+build-backend = "hatchling.build"
+
+[project]
+name = "weeve_modules"
+version = "1.0.0"
+authors = [
+    {   name="Jakub Grzelak", email="jakub.grzelak@weeve.network"   },
+]
+maintainers = [
+    {   name="Jakub Grzelak", email="jakub.grzelak@weeve.network"   },
+    {   name="Sanyam Arya", email="sanyam.arya@weeve.network"   },
+    {   name="Paul Gaiduk", email="paul.gaiduk@weeve.network"   }
+]
+description = "Python package supporting weeve modules infrastructure."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3.0",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"weeve" = "https://www.weeve.network"
+"GitHub" = "https://github.com/weeve-modules/weeve-modules-python-package"
+"Bug Tracker" = "https://github.com/weeve-modules/weeve-modules-python-package/issues"
