@@ -64,14 +64,20 @@ def initialize_logging():
         handlers=[logHandler],
     )
 
-class Logger():
+class MYLogger(str):
     """
     Weeve custom Logger object following weeve logging schema.
     """
+
+    def __init__(self, logger_name: str):
+        self.log = logging.getLogger(logger_name)
     
-    def __init__(self, logger_name):
-        """
-        Returns:
-            Custom weeve Logger with specified logger name (ideally filename).
-        """
-        return logging.getLogger(logger_name)
+    # def __Logger__(self, logger_name: str) -> logging.Logger:
+    #     """
+    #     Returns:
+    #         Custom weeve Logger with specified logger name (ideally filename).
+    #     """
+    #     return logging.getLogger(logger_name)
+    
+    def getMYLogger(self):
+        return self.log

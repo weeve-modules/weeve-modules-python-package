@@ -1,9 +1,9 @@
 from os import getenv
 from requests import exceptions, post
-from weeve_modules import Logger
+from weeve_modules import MYLogger
 import time
 
-log = Logger("weeve_modules.send")
+log = MYLogger("weeve_modules.send").getMYLogger()
 
 def send(processed_data: any) -> dict:
     """

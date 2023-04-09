@@ -4,11 +4,12 @@ This file sets up multithread processing of data and weeve intercontainer commun
 
 from queue import Queue
 from threading import Thread, Event
-from weeve_modules import Logger
-from weeve_modules.connect import getConnectCallbackFunction
+import weeve_modules
+from weeve_modules import MYLogger
+#from weeve_modules.connect import getConnectCallbackFunction
 
 # set up logging
-log = Logger("weeve_modules.processing_thread")
+log = MYLogger("weeve_modules.processing_thread").getMYLogger()
 
 class ProcessingThread(Thread):
     """
@@ -29,11 +30,13 @@ class ProcessingThread(Thread):
             while not self.data_queue.empty():
                 # pass data to the module logic defined by the module developer
                 try:
-                    getConnectCallbackFunction(self.data_queue.get())
-                    log.debug("Passed data to user defined module logic function.")
+                    log.debug("Passing data to user defined module logic function...")
+                    weeve_modules.getConnectCallbackFunction()(self.data_queue.get())
 
                 except Exception as e:
                     log.error(f"Error when passing data to user defined module logic function. {e}")
+                    # break this loop that queues data as if exception happens then queue is never empty and we get infinite loop
+                    break
 
             self.msg_received.clear()
 
