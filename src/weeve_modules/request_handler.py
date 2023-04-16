@@ -1,6 +1,6 @@
 """
 This file implements input aspect of the module's intercontainer communication.
-It receives data over REST API and passes it for processing.
+It receives data over REST API POST method and passes it for processing.
 """
 
 from queue import Queue

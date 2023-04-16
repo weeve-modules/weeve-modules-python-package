@@ -1,5 +1,5 @@
 """
-This file stores user's callback function with module's main logic.
+This file stores user's callback function with implemented module's main logic.
 This function is later accessed by processing thread.
 """
 

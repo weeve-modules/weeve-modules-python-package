@@ -1,3 +1,7 @@
+"""
+This file implements a mechanism that enables the module developer to connect to weeve intercontainer communication.
+"""
+
 from os import getenv
 from bottle import run
 from weeve_modules import MYLogger
@@ -9,7 +13,7 @@ log = MYLogger("weeve_modules.connect").getMYLogger()
 
 def connect(callback_function: object):
     """
-    Connect to weeve intercontainer communication and save a user defined callback function where received data by this module is passed for further processing.
+    Connect to weeve intercontainer communication and save a user defined callback function where received data by this module is passed to for further processing.
 
     Args:
         callback_function (object): The callback function defined by a user and ready to received data for further processing.

@@ -1,3 +1,8 @@
+"""
+This file implements output aspect of the module's intercontainer communication.
+It sends data over REST API POST method to the next module in the edge application.
+"""
+
 from os import getenv
 from requests import exceptions, post
 from weeve_modules import MYLogger
