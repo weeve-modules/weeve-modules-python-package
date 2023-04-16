@@ -5,11 +5,11 @@ It receives data over REST API POST method and passes it for processing.
 
 from queue import Queue
 from bottle import post, request, response
-from weeve_modules import MYLogger
+from weeve_modules.logger import weeve_logger
 from weeve_modules.processing_thread import ProcessingThread
 
 # set up logging
-log = MYLogger("weeve_modules.request_handler").getMYLogger()
+log = weeve_logger("weeve_modules.request_handler")
 
 # declare queue storing data
 data_Q = Queue()

@@ -5,17 +5,17 @@ It sends data over REST API POST method to the next module in the edge applicati
 
 from os import getenv
 from requests import exceptions, post
-from weeve_modules import MYLogger
+from weeve_modules.logger import weeve_logger
 import time
 
-log = MYLogger("weeve_modules.send").getMYLogger()
+log = weeve_logger("weeve_modules.send")
 
 def send(processed_data: any) -> dict:
     """
     Send processed data to the next module in weeve Edge Application.
 
     Args:
-        processed_data: processed data to send to the next module.
+        processed_data (any): processed data to send to the next module.
 
     Returns:
         dict: custom response dict in format 

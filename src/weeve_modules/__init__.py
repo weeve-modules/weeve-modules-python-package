@@ -1,5 +1,5 @@
 # expose functions to access by the user
-from weeve_modules.logger import initialize_logging, MYLogger
+from weeve_modules.logger import initialize_logging, weeve_logger
 
 # initialize logging
 initialize_logging()

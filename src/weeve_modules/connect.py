@@ -4,12 +4,12 @@ This file implements a mechanism that enables the module developer to connect to
 
 from os import getenv
 from bottle import run
-from weeve_modules import MYLogger
+from weeve_modules.logger import weeve_logger
 from weeve_modules.request_handler import request_handler
 from weeve_modules.connect_callback_function import set_connect_callback_function
 
 # set up logging
-log = MYLogger("weeve_modules.connect").getMYLogger()
+log = weeve_logger("weeve_modules.connect")
 
 def connect(callback_function: object):
     """

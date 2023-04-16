@@ -1,7 +1,7 @@
-from weeve_modules import connect, send, MYLogger
+from weeve_modules import connect, send, weeve_logger
 import time
 
-log = MYLogger("test_module").getMYLogger()
+log = weeve_logger("test_module")
 
 log.info("Running testing script...")
 

@@ -4,11 +4,11 @@ This file sets up multithread processing of data and weeve intercontainer commun
 
 from queue import Queue
 from threading import Thread, Event
-from weeve_modules import MYLogger
+from weeve_modules.logger import weeve_logger
 from weeve_modules.connect_callback_function import get_connect_callback_function
 
 # set up logging
-log = MYLogger("weeve_modules.processing_thread").getMYLogger()
+log = weeve_logger("weeve_modules.processing_thread")
 
 class ProcessingThread(Thread):
     """
