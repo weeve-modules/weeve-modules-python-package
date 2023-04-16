@@ -2,11 +2,10 @@ from os import getenv
 from bottle import run
 from weeve_modules import MYLogger
 from weeve_modules.request_handler import request_handler
+from weeve_modules.connect_callback_function import set_connect_callback_function
 
 # set up logging
 log = MYLogger("weeve_modules.connect").getMYLogger()
-
-CONNECT_CALLBACK_FUNCTION = None
 
 def connect(callback_function: object):
     """
@@ -16,8 +15,7 @@ def connect(callback_function: object):
         callback_function (object): The callback function defined by a user and ready to received data for further processing.
     """
 
-    global CONNECT_CALLBACK_FUNCTION 
-    CONNECT_CALLBACK_FUNCTION = callback_function
+    set_connect_callback_function(callback_function)
 
     log.info(
         "%s running on %s at port %s with end-point set to %s",
@@ -33,11 +31,3 @@ def connect(callback_function: object):
         port=getenv("INGRESS_PORT"),
         quiet=True,
     )
-
-def getConnectCallbackFunction() -> object:
-    """
-    Returns:
-        object: The callback function defined by a user where received data is passed for further processing.
-    """
-    
-    return CONNECT_CALLBACK_FUNCTION
