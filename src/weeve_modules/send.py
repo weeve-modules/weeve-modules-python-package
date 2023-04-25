@@ -68,7 +68,7 @@ def send(processed_data: any) -> dict:
         return {
                 "status_code": 200,
                 "ok": True,
-                "message": f"Successfully sent data to the next module.",
+                "message": "Successfully sent data to the next module.",
                 "timestamp": sending_timestamp
             }
 
