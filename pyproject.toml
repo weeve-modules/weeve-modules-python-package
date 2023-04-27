@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling", "requests", "bottle"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
@@ -16,11 +16,13 @@ maintainers = [
 description = "Python package supporting weeve modules infrastructure."
 readme = "README.md"
 requires-python = ">=3.7"
+dependencies = ["requests", "bottle"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",
 ]
+keywords = ["weeve", "modules", "IoT", "Internet of Things", "Machine Economy"]
 
 [project.urls]
 "weeve" = "https://www.weeve.network"

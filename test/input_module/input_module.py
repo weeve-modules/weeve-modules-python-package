@@ -22,7 +22,7 @@ def request_handler():
         resp["timestamp"] = 0.0
 
         # save data and response to json file
-        with open(output_file, "w") as outfile:
+        with open(output_file, "x") as outfile:
             log.info("Saving results to output file: %s", output_file)
 
             output_data = {
@@ -32,15 +32,13 @@ def request_handler():
 
             outfile.write(dumps(output_data))
 
-        return "OK"
-
     except Exception as e:
-        return f"Exception when receiving data: {e}"
+        log.error(f"Exception in module main logic data: {e}")
 
 def teardown_and_exit(*args):
     del args
-    if path.exists(output_file):
-        remove(output_file)
+    # if path.exists(output_file):
+    #     remove(output_file)
     exit(0)
 
 if __name__ == "__main__":

@@ -1,0 +1,19 @@
+{
+    "received_data": {
+        "temperature": 13.5,
+        "pressure": 1024,
+        "location": {
+            "city": "Berlin",
+            "longitude": 52.514732,
+            "latitude": 13.335263
+        },
+        "series": [123, 970, 907],
+        "notified_maintenance": true
+    },
+    "send_response": {
+        "status_code": 200,
+        "ok": true,
+        "message": "Successfully sent data to the next module.",
+        "timestamp": 0.0
+    }
+}
