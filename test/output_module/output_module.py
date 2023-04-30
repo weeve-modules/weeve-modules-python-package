@@ -26,8 +26,8 @@ def main_module_logic(received_data):
 
 def teardown_and_exit(*args):
     del args
-    # if path.exists(output_file):
-    #     remove(output_file)
+    if path.exists(output_file):
+        remove(output_file)
     exit(0)
 
 if __name__ == "__main__":
