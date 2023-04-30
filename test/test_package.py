@@ -35,6 +35,10 @@ def setup():
 
     # send data to the input container and initialize testing
     response = post(url=post_address, json=input_data)
+    
+    # give pipeline time to process everything due to a lot of files I/O operations with saving test results
+    sleep(3)
+
     assert response.status_code == 200, f"Could not send data to the input container: {response.status_code} - {response.text}"
 
 
@@ -43,7 +47,7 @@ def teardown():
     yield
     # Any teardown code for that fixture is placed after the yield.
     run(["docker-compose", "-f", "test/docker-compose.test.yml", "down", "--rmi", "all"])
-    #run(["rmdir", "-r", "test/artifacts"])
+    run(["rm", "-r", "test/artifacts"])
 
 
 def test_input_module(setup):
