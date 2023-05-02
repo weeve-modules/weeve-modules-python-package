@@ -10,8 +10,8 @@ services:
       dockerfile: test/input_module/Dockerfile
     container_name: test_input_module
     environment:
-      LOG_LEVEL: "DEBUG"
-      EGRESS_URLS: "http://test_processing_1_module:8081"
+      WEEVE_LOG_LEVEL: "DEBUG"
+      WEEVE_EGRESS_URLS: "http://test_processing_1_module:8081"
     ports:
       - 8080:8080
     volumes:
@@ -23,11 +23,11 @@ services:
       dockerfile: test/processing_1_module/Dockerfile
     container_name: test_processing_1_module
     environment:
-      LOG_LEVEL: "DEBUG"
-      MODULE_NAME: "test_processing_1_module"
-      INGRESS_HOST: "0.0.0.0"
-      INGRESS_PORT: "8081"
-      EGRESS_URLS: "http://test_processing_2_module:8082,http://test_output_module:8083"
+      WEEVE_LOG_LEVEL: "DEBUG"
+      WEEVE_MODULE_NAME: "test_processing_1_module"
+      WEEVE_INGRESS_HOST: "0.0.0.0"
+      WEEVE_INGRESS_PORT: "8081"
+      WEEVE_EGRESS_URLS: "http://test_processing_2_module:8082,http://test_output_module:8083"
     ports:
       - 8081:8081
     volumes:
@@ -39,11 +39,11 @@ services:
       dockerfile: test/processing_2_module/Dockerfile
     container_name: test_processing_2_module
     environment:
-      LOG_LEVEL: "DEBUG"
-      MODULE_NAME: "test_processing_2_module"
-      INGRESS_HOST: "0.0.0.0"
-      INGRESS_PORT: "8082"
-      EGRESS_URLS: "http://test_wrong_port:9000,http://test_wrong_address"
+      WEEVE_LOG_LEVEL: "DEBUG"
+      WEEVE_MODULE_NAME: "test_processing_2_module"
+      WEEVE_INGRESS_HOST: "0.0.0.0"
+      WEEVE_INGRESS_PORT: "8082"
+      WEEVE_EGRESS_URLS: "http://test_wrong_port:9000,http://test_wrong_address"
     ports:
       - 8082:8082
     volumes:
@@ -55,11 +55,11 @@ services:
       dockerfile: test/output_module/Dockerfile
     container_name: test_output_module
     environment:
-      LOG_LEVEL: "DEBUG"
-      MODULE_NAME: "test_output_module"
-      INGRESS_HOST: "0.0.0.0"
-      INGRESS_PORT: "8083"
-      EGRESS_URLS: ""
+      WEEVE_LOG_LEVEL: "DEBUG"
+      WEEVE_MODULE_NAME: "test_output_module"
+      WEEVE_INGRESS_HOST: "0.0.0.0"
+      WEEVE_INGRESS_PORT: "8083"
+      WEEVE_EGRESS_URLS: ""
     ports:
       - 8083:8083
     volumes:

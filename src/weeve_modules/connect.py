@@ -23,15 +23,15 @@ def connect(callback_function: object):
 
     log.info(
         "%s running on %s at port %s with end-point set to %s",
-        getenv("MODULE_NAME"),
-        getenv("INGRESS_HOST"),
-        getenv("INGRESS_PORT"),
-        getenv("EGRESS_URLS"),
+        getenv("WEEVE_MODULE_NAME"),
+        getenv("WEEVE_INGRESS_HOST"),
+        getenv("WEEVE_INGRESS_PORT"),
+        getenv("WEEVE_EGRESS_URLS"),
     )
 
     # start the server
     run(
-        host=getenv("INGRESS_HOST"),
-        port=getenv("INGRESS_PORT"),
+        host=getenv("WEEVE_INGRESS_HOST"),
+        port=getenv("WEEVE_INGRESS_PORT"),
         quiet=True,
     )
