@@ -23,7 +23,7 @@ def send(processed_data: any) -> dict:
                     "status_code": 200 for success and 400 otherwise, 
                     "ok": True if successfully sent data and False otherwise,
                     "message": Success or error message,
-                    "timestamp": Timestamp when tried to send data.
+                    "timestamp": Timestamp when sent or attempted to send data.
                 }
     """
 

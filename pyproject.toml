@@ -26,5 +26,6 @@ keywords = ["weeve", "modules", "IoT", "Internet of Things", "Machine Economy"]
 
 [project.urls]
 "weeve" = "https://www.weeve.network"
+"How to create a weeve module" = "https://docs.weeve.engineering/guides/how-to-create-a-weeve-module"
 "GitHub" = "https://github.com/weeve-modules/weeve-modules-python-package"
 "Bug Tracker" = "https://github.com/weeve-modules/weeve-modules-python-package/issues"

@@ -25,7 +25,7 @@ def connect(callback_function: object = None, input_module: bool = False, gracef
     Connect to weeve intercontainer communication and save a user defined callback function where received data by this module is passed to for further processing.
 
     Args:
-        callback_function (object): The callback function defined by a user and ready to received data for further processing.
+        callback_function (object): The callback function defined by a user and ready to receive data for further processing. Callback function must accept data as an argument.
         input_module (bool): Flag whether the module is Input module or not. If true, then it does not require callback_function argument. 
         gracefully_terminate (bool): (Optional) Whether to gracefully terminate the module container. This is optional as developers might want to implement their own graceful termination if their modules use extra resources or files.
     """
