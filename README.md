@@ -77,7 +77,7 @@ if resp.status_code == 400:
 
 Weeve logger is based on [logging package](https://docs.python.org/3/library/logging.html#). There are five supported logging levels: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`. Refer to [logging levels package documentation](https://docs.python.org/3/library/logging.html#levels). These messages have a custom weeve logging protocol which is in sync with weeve Agent and API. Current schema:
 
-```json
+```text
 {
     "timestamp": <timestamp>,
     "level": <logging_level>,
