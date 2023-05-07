@@ -16,7 +16,7 @@ maintainers = [
 description = "Python package supporting weeve modules infrastructure."
 readme = "README.md"
 requires-python = ">=3.7"
-dependencies = ["requests", "bottle"]
+dependencies = ["requests>=2.28.2", "bottle>=0.12.25"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
