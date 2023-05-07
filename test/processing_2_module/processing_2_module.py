@@ -28,6 +28,9 @@ def main_module_logic(received_data):
             if in_string_memory_address_location > -1:
                 # remove memory address
                 resp["message"] = resp["message"].replace(resp["message"][in_string_memory_address_location+10:resp["message"].find(">", in_string_memory_address_location+10)],"")
+                # remove other string artefacts
+                resp["message"] = resp["message"].replace("\'", "")
+                resp["message"] = resp["message"].replace("\"", "")
 
         # hardcode timestamp to automate data comparison in pytest functions
         resp["timestamp"] = 2.0
@@ -56,6 +59,4 @@ def teardown_and_exit(*args):
 if __name__ == "__main__":
     signal(SIGTERM, teardown_and_exit)
 
-    log.info("Running the second test processing module container...")
-
-    connect(main_module_logic)
+    connect(callback_function=main_module_logic, input_module=False, gracefully_terminate=False)

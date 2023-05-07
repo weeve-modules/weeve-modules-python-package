@@ -45,7 +45,7 @@ class JSONFormatter(logging.Formatter):
 
         return json.dumps(log_data)
     
-def initialize_logging():
+def initialize_logging() -> None:
     """
     Intialize weeve custom logging.
     """

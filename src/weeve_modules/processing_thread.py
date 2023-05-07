@@ -20,7 +20,7 @@ class ProcessingThread(Thread):
         self.data_queue = data_queue
         self.msg_received = Event()
 
-    def run(self):
+    def run(self) -> None:
         """
         Runs the processing thread.
         """
@@ -39,7 +39,7 @@ class ProcessingThread(Thread):
 
             self.msg_received.clear()
 
-    def resume(self):
+    def resume(self) -> None:
         """
         Resumes processing thread if stopped.
         """

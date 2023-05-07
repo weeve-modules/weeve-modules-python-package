@@ -1,4 +1,4 @@
-from weeve_modules import send, weeve_logger
+from weeve_modules import send, weeve_logger, connect
 from bottle import run, post, request
 from json import dumps
 from os import path, remove
@@ -44,7 +44,7 @@ def teardown_and_exit(*args):
 if __name__ == "__main__":
     signal(SIGTERM, teardown_and_exit)
 
-    log.info("Running test input module container on 0.0.0.0 port 8080")
+    connect(callback_function=None, input_module=True, gracefully_terminate=False)
 
     # start the server
     run(

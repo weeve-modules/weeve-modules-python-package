@@ -6,7 +6,7 @@ This function is later accessed by processing thread.
 # variable to store user's callback function
 CONNECT_CALLBACK_FUNCTION = None
 
-def set_connect_callback_function(function: object):
+def set_connect_callback_function(function: object) -> None:
     """
     Saves user's callback function with implemented module's main logic.
 

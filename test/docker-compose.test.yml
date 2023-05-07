@@ -11,6 +11,7 @@ services:
     container_name: test_input_module
     environment:
       WEEVE_LOG_LEVEL: "DEBUG"
+      WEEVE_MODULE_NAME: "test_input_module"
       WEEVE_EGRESS_URLS: "http://test_processing_1_module:8081"
     ports:
       - 8080:8080

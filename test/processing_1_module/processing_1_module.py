@@ -51,6 +51,5 @@ def teardown_and_exit(*args):
 if __name__ == "__main__":
     signal(SIGTERM, teardown_and_exit)
 
-    log.info("Running the first test processing module container...")
+    connect(callback_function=main_module_logic, gracefully_terminate=False)
 
-    connect(main_module_logic)
