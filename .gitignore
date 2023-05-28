@@ -1,0 +1,9 @@
+# Macbook specific
+.DS_Store
+
+# vscode specific
+.vscode/*.log
+
+# test artifacts
+test/pycache
+test/artifacts
