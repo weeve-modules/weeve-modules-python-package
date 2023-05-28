@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
 This function enables passing data to the next module in the weeve Edge Application. It takes only one argument:
 
-* `processed_data` (`any`): Data to send to the next module.
+* `processed_data` (`dict`): Data in JSON format to send to the next module.
 
 It returns a custom response dictionary:
 

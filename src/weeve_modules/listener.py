@@ -17,7 +17,9 @@ def listener(callback_function: object = None) -> None:
     Set up a listener to weeve intercontainer communication and save a user defined callback function where received data by this module is passed to for further processing.
 
     Args:
-        callback_function (object): The callback function defined by a user and ready to receive data for further processing. Callback function must accept data as an argument.
+        callback_function (object): The callback function defined by a user and ready to receive data for further processing. Callback function must accept data as an argument. 
+                                    It should accept data in JSON format, as that is the format used by other modules within weeve ecosystem. 
+                                    The function should be also responsible for handling errors that could happen during processing following best software engineering practices.
     """
 
     log.info(

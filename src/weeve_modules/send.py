@@ -10,12 +10,12 @@ import time
 
 log = weeve_logger("weeve_modules.send")
 
-def send(processed_data: any) -> dict:
+def send(processed_data: dict) -> dict:
     """
     Send processed data to the next module in weeve Edge Application.
 
     Args:
-        processed_data (any): processed data to send to the next module.
+        processed_data (dict): processed data in JSON format to send to the next module.
 
     Returns:
         dict: custom response dict in format 
