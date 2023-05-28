@@ -1,4 +1,4 @@
-from weeve_modules import connect, send, weeve_logger
+from weeve_modules import listener, send, weeve_logger
 from json import dumps
 from os import path, remove
 from signal import signal, SIGTERM
@@ -51,5 +51,5 @@ def teardown_and_exit(*args):
 if __name__ == "__main__":
     signal(SIGTERM, teardown_and_exit)
 
-    connect(callback_function=main_module_logic, gracefully_terminate=False)
+    listener(callback_function=main_module_logic, gracefully_terminate=False)
 

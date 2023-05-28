@@ -1,7 +1,7 @@
-from weeve_modules import send, weeve_logger, connect
+from weeve_modules import send, weeve_logger
 from bottle import run, post, request
 from json import dumps
-from os import path, remove
+from os import path, remove, getenv
 from signal import signal, SIGTERM
 
 log = weeve_logger("input_module")
@@ -44,8 +44,12 @@ def teardown_and_exit(*args):
 if __name__ == "__main__":
     signal(SIGTERM, teardown_and_exit)
 
-    connect(callback_function=None, input_module=True, gracefully_terminate=False)
-
+    log.info(
+            "%s running with end-point set to %s",
+            getenv("WEEVE_MODULE_NAME"),
+            getenv("WEEVE_EGRESS_URLS")
+        )
+    
     # start the server
     run(
         host="0.0.0.0",

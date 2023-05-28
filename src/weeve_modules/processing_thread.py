@@ -5,7 +5,7 @@ This file sets up multithread processing of data and weeve intercontainer commun
 from queue import Queue
 from threading import Thread, Event
 from weeve_modules.logger import weeve_logger
-from weeve_modules.connect_callback_function import get_connect_callback_function
+from weeve_modules.listener_callback_function import get_listener_callback_function
 
 # set up logging
 log = weeve_logger("weeve_modules.processing_thread")
@@ -30,7 +30,7 @@ class ProcessingThread(Thread):
                 # pass data to the module logic defined by the module developer
                 try:
                     log.debug("Passing data to user defined module logic function...")
-                    get_connect_callback_function()(self.data_queue.get())
+                    get_listener_callback_function()(self.data_queue.get())
 
                 except Exception as e:
                     log.error(f"Error when passing data to user defined module logic function. {e}")

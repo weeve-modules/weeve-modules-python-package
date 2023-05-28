@@ -7,7 +7,7 @@ For the full documentation on building weeve modules, please see our official do
 
 - [weeve Modules Python Package](#weeve-modules-python-package)
   - [Package specific environment variables](#package-specific-environment-variables)
-  - [weeve\_modules.connect()](#weeve_modulesconnect)
+  - [weeve\_modules.listener()](#weeve_moduleslistener)
   - [weeve\_modules.send()](#weeve_modulessend)
   - [weeve\_modules.weeve\_logger()](#weeve_modulesweeve_logger)
   - [Example: Input Module](#example-input-module)
@@ -27,22 +27,21 @@ These environment variables are set by the weeve Agent on the edge-node. In orde
 | WEEVE_EGRESS_URLS     | string | HTTP ReST endpoint for the next modules.                                                                                                                                    |
 
 
-## weeve_modules.connect()
+## weeve_modules.listener()
 
-`connect()` is the most important function as it allows the module to connect to weeve ecosystem in production. `connect()` takes three arguments:
+`listener()` is the most important function as it allows the module to set up a listener server to receive data from other modules within the weeve ecosystem. `listener()` takes two arguments:
 
 * `callback_function` (`object`): The callback function defined by a user and ready to receive data for further processing. Callback function **must** accept data as an argument.
-* `input_module` (`bool`): Flag whether the module is Input module or not. If `True`, then it does not require callback_function argument. 
 * `gracefully_terminate` (`bool`): (Optional) Whether to gracefully terminate the module container. This is optional as developers might want to implement their own graceful termination if their modules use extra resources or files. We strongly recommend setting `gracefully_terminate` to `True` unless the module uses volumes, external resources, etc. when the custom implementation of graceful termination might be required.
 
 ```python
-from weeve_modules import connect
+from weeve_modules import listener
 
 def my_module_logic(data):
     # yout module code here
 
 if __name__ == "__main__":
-    connect(callback_function=my_module_logic, input_module=True, gracefully_terminate=True)
+    listener(callback_function=my_module_logic, gracefully_terminate=True)
 ```
 
 ## weeve_modules.send()
@@ -105,10 +104,10 @@ log.critical("This is critical log messege.")
 ## Example: Input Module
 
 This is an example of a simple input module that receives data over HTTP ReST and passes it to the next module in the weeve Edge Application.
-We need `send()`, `weeve_logger()` and `connect()` functions.
+We need `send()` and `weeve_logger()` functions.
 
 ```python
-from weeve_modules import send, weeve_logger, connect
+from weeve_modules import send, weeve_logger
 from bottle import run, post, request
 
 log = weeve_logger("my_input_module")
@@ -122,9 +121,6 @@ def request_handler():
     resp = send(received_data)
 
 if __name__ == "__main__":
-    # connect to weeve ecosystem
-    connect(callback_function=None, input_module=True, gracefully_terminate=True)
-
     # start the server on http://0.0.0.0:8080/
     run(
         host="0.0.0.0",
@@ -136,10 +132,10 @@ if __name__ == "__main__":
 ## Example: Processing Module
 
 This is an example of a simple processing module that receives data from the previous module and filters out `temperature` lower that 0. Later it sends data to the next module in the weeve Edge Application.
-We need `send()`, `weeve_logger()` and `connect()` functions.
+We need `send()`, `weeve_logger()` and `listener()` functions.
 
 ```python
-from weeve_modules import send, weeve_logger, connect
+from weeve_modules import send, weeve_logger, listener
 
 log = weeve_logger("my_processing_module")
 
@@ -160,17 +156,17 @@ def filter_temperature(data):
 
 if __name__ == "__main__":
 
-    # connect to weeve ecosystem
-    connect(callback_function=filter_temperature, input_module=False, gracefully_terminate=True)
+    # set up a listener to receive data from other modules within the weeve ecosystem
+    listener(callback_function=filter_temperature, gracefully_terminate=True)
 ```
 
 ## Example: Output Module
 
 This is an example of a simple output module that receives data from the previous module and sends it over HTTP ReST to a selected endpoint.
-We need `weeve_logger()` and `connect()` functions.
+We need `weeve_logger()` and `listener()` functions.
 
 ```python
-from weeve_modules import weeve_logger, connect
+from weeve_modules import weeve_logger, listener
 from requests import post
 from json import dumps
 
@@ -184,6 +180,6 @@ def send_to_endpoint(data):
 
 if __name__ == "__main__":
     
-    # connect to weeve ecosystem
-    connect(callback_function=send_to_endpoint, input_module=False, gracefully_terminate=True)
+    # set up a listener to receive data from other modules within the weeve ecosystem
+    listener(callback_function=send_to_endpoint, gracefully_terminate=True)
 ```
