@@ -33,7 +33,7 @@ class ProcessingThread(Thread):
                     get_listener_callback_function()(self.data_queue.get())
 
                 except Exception as e:
-                    log.error(f"Error when passing data to user defined module logic function. {e}")
+                    log.error(f"Error while processing the data. {e}")
                     # break this loop that queues data as if exception happens then queue is never empty and we get infinite loop
                     break
 
