@@ -51,5 +51,5 @@ def teardown_and_exit(*args):
 if __name__ == "__main__":
     signal(SIGTERM, teardown_and_exit)
 
-    listener(callback_function=main_module_logic, gracefully_terminate=False)
+    listener(callback_function=main_module_logic)
 

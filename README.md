@@ -10,6 +10,7 @@ For the full documentation on building weeve modules, please see our official do
   - [weeve\_modules.listener()](#weeve_moduleslistener)
   - [weeve\_modules.send()](#weeve_modulessend)
   - [weeve\_modules.weeve\_logger()](#weeve_modulesweeve_logger)
+  - [weeve\_modules.add\_graceful\_termination()](#weeve_modulesadd_graceful_termination)
   - [Example: Input Module](#example-input-module)
   - [Example: Processing Module](#example-processing-module)
   - [Example: Output Module](#example-output-module)
@@ -29,19 +30,18 @@ These environment variables are set by the weeve Agent on the edge-node. In orde
 
 ## weeve_modules.listener()
 
-`listener()` is the most important function as it allows the module to set up a listener server to receive data from other modules within the weeve ecosystem. `listener()` takes two arguments:
+`listener()` is the most important function as it allows the module to set up a listener server to receive data from other modules within the weeve ecosystem. `listener()` takes one argument:
 
 * `callback_function` (`object`): The callback function defined by a user and ready to receive data for further processing. Callback function **must** accept data as an argument.
-* `gracefully_terminate` (`bool`): (Optional) Whether to gracefully terminate the module container. This is optional as developers might want to implement their own graceful termination if their modules use extra resources or files. We strongly recommend setting `gracefully_terminate` to `True` unless the module uses volumes, external resources, etc. when the custom implementation of graceful termination might be required.
 
 ```python
 from weeve_modules import listener
 
 def my_module_logic(data):
-    # yout module code here
+    # your module code here
 
 if __name__ == "__main__":
-    listener(callback_function=my_module_logic, gracefully_terminate=True)
+    listener(callback_function=my_module_logic)
 ```
 
 ## weeve_modules.send()
@@ -101,6 +101,24 @@ log.error("This is error log messege.")
 log.critical("This is critical log messege.")
 ```
 
+## weeve_modules.add_graceful_termination()
+
+`add_graceful_termination()` function enables Docker to gracefully terminate the module container. This is optional as developers might want to implement their own graceful termination if their modules use extra resources or files. However, we strongly recommend calling `add_graceful_termination()` at the start of your script unless the module uses volumes, external resources, etc. when the custom implementation of graceful termination might be required.
+
+Example:
+
+```python
+from weeve_modules import listener, add_graceful_termination
+
+def my_module_logic(data):
+    # your module code here
+
+if __name__ == "__main__":
+    add_graceful_termination()
+
+    listener(callback_function=my_module_logic)
+```
+
 ## Example: Input Module
 
 This is an example of a simple input module that receives data over HTTP ReST and passes it to the next module in the weeve Edge Application.
@@ -121,6 +139,8 @@ def request_handler():
     resp = send(received_data)
 
 if __name__ == "__main__":
+    add_graceful_termination()
+
     # start the server on http://0.0.0.0:8080/
     run(
         host="0.0.0.0",
@@ -155,9 +175,10 @@ def filter_temperature(data):
             log.error("Failed to pass filetered data: %s", resp.message)
 
 if __name__ == "__main__":
+    add_graceful_termination()
 
     # set up a listener to receive data from other modules within the weeve ecosystem
-    listener(callback_function=filter_temperature, gracefully_terminate=True)
+    listener(callback_function=filter_temperature)
 ```
 
 ## Example: Output Module
@@ -179,7 +200,8 @@ def send_to_endpoint(data):
     post(url="", json=data)
 
 if __name__ == "__main__":
+    add_graceful_termination()
     
     # set up a listener to receive data from other modules within the weeve ecosystem
-    listener(callback_function=send_to_endpoint, gracefully_terminate=True)
+    listener(callback_function=send_to_endpoint)
 ```
