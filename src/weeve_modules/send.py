@@ -42,7 +42,7 @@ def send(processed_data: any) -> dict:
 
             if response.status_code != 200:
                 # on sending error
-                log.error(f"Failed sending data to {url} | Response: {response.status_code} {response.reason}")
+                log.debug(f"Failed sending data to {url} | Response: {response.status_code} {response.reason}")
                 
                 failed_responses.append(
                     {

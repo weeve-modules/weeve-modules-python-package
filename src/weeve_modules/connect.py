@@ -18,7 +18,7 @@ def gracefully_terminate(*args):
     Gracefully terminate the module script.
     """
     del args
-    sys.exit("Successfully terminated the module.")
+    sys.exit(0)
 
 def connect(callback_function: object = None, input_module: bool = False, gracefully_terminate: bool = True) -> None:
     """
