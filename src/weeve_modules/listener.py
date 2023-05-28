@@ -25,7 +25,7 @@ def listener(callback_function: object = None) -> None:
         getenv("WEEVE_MODULE_NAME"),
         getenv("WEEVE_INGRESS_HOST"),
         getenv("WEEVE_INGRESS_PORT"),
-        getenv("WEEVE_EGRESS_URLS"),
+        getenv("WEEVE_EGRESS_URLS")
     )
 
     if not callback_function:
@@ -37,6 +37,6 @@ def listener(callback_function: object = None) -> None:
     run(
         host=getenv("WEEVE_INGRESS_HOST"),
         port=getenv("WEEVE_INGRESS_PORT"),
-        quiet=True,
+        quiet=True
     )
 

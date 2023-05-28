@@ -16,7 +16,7 @@ def main_module_logic(received_data):
             log.info("Saving results to output file: %s", output_file)
 
             output_data = {
-                "received_data": received_data,
+                "received_data": received_data
             }
 
             outfile.write(dumps(output_data))

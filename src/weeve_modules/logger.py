@@ -21,7 +21,7 @@ log_levels = {
     "INFO": logging.INFO,
     "WARNING": logging.WARNING,
     "ERROR": logging.ERROR,
-    "CRITICAL": logging.CRITICAL,
+    "CRITICAL": logging.CRITICAL
 }
 
 class JSONFormatter(logging.Formatter):
@@ -40,7 +40,7 @@ class JSONFormatter(logging.Formatter):
             "timestamp": self.formatTime(record),
             "level": record.levelname,
             "filename": record.filename,
-            "message": record.getMessage(),
+            "message": record.getMessage()
         }
 
         return json.dumps(log_data)
@@ -61,7 +61,7 @@ def initialize_logging() -> None:
 
     logging.basicConfig(
         level=log_level,
-        handlers=[logHandler],
+        handlers=[logHandler]
     )
 
 def weeve_logger(logger_name: str) -> logging.Logger:
