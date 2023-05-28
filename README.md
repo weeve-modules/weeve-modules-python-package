@@ -16,7 +16,7 @@ For the full documentation on building weeve modules, please see our official do
 
 ## Package specific environment variables
 
-These environment variables are set by the weeve Agent on the edge-node. In order to avoid conflicts, do not override these environments when pushing modules to production (use them for dev and testing only).
+These environment variables are set by the weeve Agent on the edge-node. In order to avoid conflicts, do not override these variables when pushing modules to production.
 
 | Environment Variables | type   | Description                                                                                                                                                                 |
 | --------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
