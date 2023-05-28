@@ -31,6 +31,12 @@ def main_module_logic(received_data):
                 # remove other string artefacts
                 resp["message"] = resp["message"].replace("\'", "")
                 resp["message"] = resp["message"].replace("\"", "")
+            
+            # remove the error number due to the disparities in error numbering between OS i.e. macOS and Linux.
+            in_string_error_number_location = resp["message"].find("Errno -")
+            if in_string_error_number_location > -1:
+                # remove the error number
+                resp["message"] = resp["message"][:in_string_error_number_location+7] + resp["message"][in_string_error_number_location+8:]
 
         # hardcode timestamp to automate data comparison in pytest functions
         resp["timestamp"] = 2.0

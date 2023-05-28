@@ -31,7 +31,7 @@
     "send_response": {
         "status_code": 400,
         "ok": false,
-        "message": "Exception when sending data to the next module: HTTPConnectionPool(host=test_wrong_port, port=9000): Max retries exceeded with url: / (Caused by NameResolutionError(<urllib3.connection.HTTPConnection object at >: Failed to resolve test_wrong_port ([Errno -2] Name or service not known)))",
+        "message": "Exception when sending data to the next module: HTTPConnectionPool(host=test_wrong_port, port=9000): Max retries exceeded with url: / (Caused by NameResolutionError(<urllib3.connection.HTTPConnection object at >: Failed to resolve test_wrong_port ([Errno -] Name or service not known)))",
         "timestamp": 2.0
     }
 }
