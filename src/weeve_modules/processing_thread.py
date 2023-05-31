@@ -28,8 +28,8 @@ class ProcessingThread(Thread):
         while self.msg_received.wait(timeout=None):
             while not self.data_queue.empty():
                 # pass data to the module logic defined by the module developer
+                log.debug("Passing data to user defined module logic function...")
                 try:
-                    log.debug("Passing data to user defined module logic function...")
                     get_listener_callback_function()(self.data_queue.get())
 
                 except Exception as e:
