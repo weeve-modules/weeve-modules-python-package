@@ -29,8 +29,9 @@ class ProcessingThread(Thread):
             while not self.data_queue.empty():
                 # pass data to the module logic defined by the module developer
                 log.debug("Passing data to user defined module logic function...")
+                next_payload = self.data_queue.get()
                 try:
-                    get_listener_callback_function()(self.data_queue.get())
+                    get_listener_callback_function()(next_payload)
 
                 except Exception as e:
                     log.error(f"Error while processing the data. {e}")
