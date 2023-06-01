@@ -18,9 +18,6 @@ def request_handler():
         resp = send(received_data)
         log.info("Send response: %s", resp)
 
-        # hardcode timestamp to automate data comparison in pytest functions
-        resp["timestamp"] = 0.0
-
         # save data and response to json file
         with open(output_file, "x") as outfile:
             log.info("Saving results to output file: %s", output_file)
@@ -49,7 +46,7 @@ if __name__ == "__main__":
             getenv("WEEVE_MODULE_NAME"),
             getenv("WEEVE_EGRESS_URLS")
         )
-    
+
     # start the server
     run(
         host="0.0.0.0",

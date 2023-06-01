@@ -19,13 +19,10 @@ def main_module_logic(received_data):
         # add some data
         processed_data["temp_fahrenheit"] = celsius_to_fahrenheit(received_data["temperature"])
         processed_data["weather"] = "sunny"
-        
+
         # send data to the next module
         resp = send(processed_data)
         log.info("Send response: %s", resp)
-
-        # hardcode timestamp to automate data comparison in pytest functions
-        resp["timestamp"] = 1.0
 
         # save data and response to json file
         with open(output_file, "w") as outfile:

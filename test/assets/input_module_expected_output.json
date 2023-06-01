@@ -10,10 +10,5 @@
         "series": [123, 970, 907],
         "notified_maintenance": true
     },
-    "send_response": {
-        "status_code": 200,
-        "ok": true,
-        "message": "Successfully sent data to the next module.",
-        "timestamp": 0.0
-    }
+    "send_response": ""
 }

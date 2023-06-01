@@ -50,15 +50,11 @@ This function enables passing data to the next module in the weeve Edge Applicat
 
 * `processed_data` (`dict`): Data in JSON format to send to the next module.
 
-It returns a custom response dictionary:
+It returns empty string ("") on success. Otherwise, error message.
 
 ```text
-{
-    "status_code": 200 for success and 400 otherwise, 
-    "ok": True if successfully sent data and False otherwise,
-    "message": Success or error message,
-    "timestamp": Timestamp when sent or attempted to send data.
-}
+On error:
+"Failed sending data to urls: https://testing.com - Error 404."
 ```
 
 Example:
@@ -68,7 +64,7 @@ from weeve_modules import send
 
 # send data to the next module
 resp = send({"temperature": 12, "pressure": 1019})
-if resp.status_code == 400:
+if resp:
     # your error protocol
 ```
 
@@ -169,7 +165,7 @@ def filter_temperature(data):
         resp = send(data)
         
         # check the success of sending the data
-        if resp.status_code == 200:
+        if resp:
             log.info("Successfully passed filetered data.")
         else:
             log.error("Failed to pass filetered data: %s", resp.message)

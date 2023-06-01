@@ -17,29 +17,26 @@ def main_module_logic(received_data):
         processed_data["voltage"] = 215.23
         processed_data["altitude"] = 2405
         processed_data["warnings"] = True
-        
+
         # send data to the next module
         resp = send(processed_data)
         log.info("Send response: %s", resp)
 
-        if resp["status_code"] == 400:
+        if resp:
             # change the error message erronous object memory location to be compatible with ground truth test as it is assigned randomly by the system
-            in_string_memory_address_location = resp["message"].find("object at")
+            in_string_memory_address_location = resp.find("object at")
             if in_string_memory_address_location > -1:
                 # remove memory address
-                resp["message"] = resp["message"].replace(resp["message"][in_string_memory_address_location+10:resp["message"].find(">", in_string_memory_address_location+10)],"")
+                resp = resp.replace(resp[in_string_memory_address_location+10:resp.find(">", in_string_memory_address_location+10)],"")
                 # remove other string artefacts
-                resp["message"] = resp["message"].replace("\'", "")
-                resp["message"] = resp["message"].replace("\"", "")
-            
+                resp = resp.replace("\'", "")
+                resp = resp.replace("\"", "")
+
             # remove the error number due to the disparities in error numbering between OS i.e. macOS and Linux.
-            in_string_error_number_location = resp["message"].find("Errno -")
+            in_string_error_number_location = resp.find("Errno -")
             if in_string_error_number_location > -1:
                 # remove the error number
-                resp["message"] = resp["message"][:in_string_error_number_location+7] + resp["message"][in_string_error_number_location+8:]
-
-        # hardcode timestamp to automate data comparison in pytest functions
-        resp["timestamp"] = 2.0
+                resp = resp[:in_string_error_number_location+7] + resp[in_string_error_number_location+8:]
 
         # save data and response to json file
         with open(output_file, "w") as outfile:

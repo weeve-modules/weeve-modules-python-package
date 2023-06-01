@@ -23,10 +23,5 @@
         "temp_fahrenheit": 56.3,
         "weather": "sunny"
     },
-    "send_response": {
-        "status_code": 200,
-        "ok": true,
-        "message": "Successfully sent data to the next module.",
-        "timestamp": 1.0
-    }
+    "send_response": ""
 }

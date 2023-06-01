@@ -18,13 +18,7 @@ def send(processed_data: dict) -> dict:
         processed_data (dict): processed data in JSON format to send to the next module.
 
     Returns:
-        dict: custom response dict in format 
-                {
-                    "status_code": 200 for success and 400 otherwise, 
-                    "ok": True if successfully sent data and False otherwise,
-                    "message": Success or error message,
-                    "timestamp": Timestamp when sent or attempted to send data
-                }
+        string: Empty string ("" / None) on success. Otherwise, error message.
     """
 
     try:
@@ -43,43 +37,31 @@ def send(processed_data: dict) -> dict:
             if response.status_code != 200:
                 # on sending error
                 log.debug(f"Failed sending data to {url} | Response: {response.status_code} {response.reason}")
-                
+
                 failed_responses.append(
                     {
                         "url": url,
                         "status_code": response.status_code,
                         "message": response.text,
-                        "timestamp": sending_timestamp
                     }
                 )
-            else: 
+            else:
                 # on sending success
                 log.debug(f"Successfully sent data to url {url} | Response: {response.status_code} {response.reason}")
 
         if failed_responses:
             # info on failed responses
-            return {
-                    "status_code": 400,
-                    "ok": False,
-                    "message": f"Failed sending data to the following egress urls: {failed_responses}",
-                    "timestamp": time.time()
-                }
+            error_msg = "Failed sending data to the following urls: "
+            for resp in failed_responses:
+                error_msg = error_msg + f"{resp['url']} - {resp['status_code']}: {resp['message']}. "
 
-        return {
-                "status_code": 200,
-                "ok": True,
-                "message": "Successfully sent data to the next module.",
-                "timestamp": sending_timestamp
-            }
+            return error_msg
+
+        return ""
 
     except (
         exceptions.RequestException,
         exceptions.ConnectionError,
         exceptions.ConnectTimeout
     ) as e:
-        return {
-                "status_code": 400,
-                "ok": False,
-                "message": f"Exception when sending data to the next module: {e}",
-                "timestamp": time.time()
-            }
+        return f"Exception when sending data to the next module: {e}"
