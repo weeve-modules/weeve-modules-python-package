@@ -7,6 +7,7 @@ log = weeve_logger("processing_2_module")
 
 output_file = "/app/artifacts/processing_2_module_report.json"
 
+
 def main_module_logic(received_data):
     try:
         log.info(f"Received data: {received_data}")
@@ -19,24 +20,34 @@ def main_module_logic(received_data):
         processed_data["warnings"] = True
 
         # send data to the next module
-        resp = send(processed_data)
-        log.info("Send response: %s", resp)
+        err = send(processed_data)
+        if err:
+            log.error("Error while sending the data to the next module: %s", err)
 
-        if resp:
+        if err:
             # change the error message erronous object memory location to be compatible with ground truth test as it is assigned randomly by the system
-            in_string_memory_address_location = resp.find("object at")
+            in_string_memory_address_location = err.find("object at")
             if in_string_memory_address_location > -1:
                 # remove memory address
-                resp = resp.replace(resp[in_string_memory_address_location+10:resp.find(">", in_string_memory_address_location+10)],"")
+                err = err.replace(
+                    err[
+                        in_string_memory_address_location
+                        + 10 : err.find(">", in_string_memory_address_location + 10)
+                    ],
+                    "",
+                )
                 # remove other string artefacts
-                resp = resp.replace("\'", "")
-                resp = resp.replace("\"", "")
+                err = err.replace("'", "")
+                err = err.replace('"', "")
 
             # remove the error number due to the disparities in error numbering between OS i.e. macOS and Linux.
-            in_string_error_number_location = resp.find("Errno -")
+            in_string_error_number_location = err.find("Errno -")
             if in_string_error_number_location > -1:
                 # remove the error number
-                resp = resp[:in_string_error_number_location+7] + resp[in_string_error_number_location+8:]
+                err = (
+                    err[: in_string_error_number_location + 7]
+                    + err[in_string_error_number_location + 8 :]
+                )
 
         # save data and response to json file
         with open(output_file, "w") as outfile:
@@ -45,7 +56,7 @@ def main_module_logic(received_data):
             output_data = {
                 "received_data": received_data,
                 "processed_data": processed_data,
-                "send_response": resp
+                "err_msg": err,
             }
 
             outfile.write(dumps(output_data))
@@ -53,11 +64,13 @@ def main_module_logic(received_data):
     except Exception as e:
         log.error(f"Exception in module main logic data: {e}")
 
+
 def teardown_and_exit(*args):
     del args
     if path.exists(output_file):
         remove(output_file)
     exit(0)
+
 
 if __name__ == "__main__":
     signal(SIGTERM, teardown_and_exit)

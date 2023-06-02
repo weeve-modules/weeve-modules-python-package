@@ -10,11 +10,12 @@ from weeve_modules.listener_callback_function import get_listener_callback_funct
 # set up logging
 log = weeve_logger("weeve_modules.processing_thread")
 
+
 class ProcessingThread(Thread):
     """
     Thread subclass for processing data received by the module.
     """
-    
+
     def __init__(self, data_queue: Queue):
         super(ProcessingThread, self).__init__()
         self.data_queue = data_queue

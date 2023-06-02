@@ -63,8 +63,8 @@ Example:
 from weeve_modules import send
 
 # send data to the next module
-resp = send({"temperature": 12, "pressure": 1019})
-if resp:
+err = send({"temperature": 12, "pressure": 1019})
+if err:
     # your error protocol
 ```
 
@@ -127,12 +127,12 @@ from bottle import run, post, request
 log = weeve_logger("my_input_module")
 
 @post("/")
-def request_handler():
+def _request_handler():
     # receive data
     received_data = request.json
-    
+
     # send data to the next module
-    resp = send(received_data)
+    err = send(received_data)
 
 if __name__ == "__main__":
     add_graceful_termination()
@@ -161,14 +161,14 @@ def filter_temperature(data):
     # filter temperature data
     if data["temperature"] >= 0:
 
-        # send data to the next module 
-        resp = send(data)
-        
+        # send data to the next module
+        err = send(data)
+
         # check the success of sending the data
-        if resp:
-            log.info("Successfully passed filetered data.")
+        if err:
+            log.error("Failed to pass filetered data: %s", err)
         else:
-            log.error("Failed to pass filetered data: %s", resp.message)
+            log.info("Successfully passed filetered data.")
 
 if __name__ == "__main__":
     add_graceful_termination()
@@ -197,7 +197,7 @@ def send_to_endpoint(data):
 
 if __name__ == "__main__":
     add_graceful_termination()
-    
+
     # set up a listener to receive data from other modules within the weeve ecosystem
     listener(callback_function=send_to_endpoint)
 ```

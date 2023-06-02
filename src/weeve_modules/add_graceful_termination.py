@@ -9,6 +9,7 @@ from weeve_modules.logger import weeve_logger
 # set up logging
 log = weeve_logger("weeve_modules.add_graceful_termination")
 
+
 def gracefully_terminate(*args):
     """
     Gracefully terminate the module script.
@@ -16,6 +17,7 @@ def gracefully_terminate(*args):
     log.debug("Gracefully terminating the module...")
     del args
     exit(0)
+
 
 def add_graceful_termination():
     """

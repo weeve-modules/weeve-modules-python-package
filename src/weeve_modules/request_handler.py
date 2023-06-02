@@ -18,8 +18,9 @@ data_Q = Queue()
 data_processing_thread = ProcessingThread(data_Q)
 data_processing_thread.start()
 
+
 @post("/")
-def request_handler():
+def _request_handler():
     """
     Handles incoming data.
     """

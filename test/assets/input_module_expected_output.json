@@ -10,5 +10,5 @@
         "series": [123, 970, 907],
         "notified_maintenance": true
     },
-    "send_response": ""
+    "err_msg": ""
 }

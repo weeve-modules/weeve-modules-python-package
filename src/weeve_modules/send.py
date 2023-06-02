@@ -6,11 +6,11 @@ It sends data over REST API POST method to the next module in the edge applicati
 from os import getenv
 from requests import exceptions, post
 from weeve_modules.logger import weeve_logger
-import time
 
 log = weeve_logger("weeve_modules.send")
 
-def send(processed_data: dict) -> dict:
+
+def send(processed_data: dict) -> str:
     """
     Send processed data to the next module in weeve Edge Application.
 
@@ -23,7 +23,9 @@ def send(processed_data: dict) -> dict:
 
     try:
         # parse egress urls for fanout
-        urls = [url.strip() for url in getenv("WEEVE_EGRESS_URLS").strip(",").split(",")]
+        urls = [
+            url.strip() for url in getenv("WEEVE_EGRESS_URLS").strip(",").split(",")
+        ]
 
         # for collecting REST API POST responses
         failed_responses = []
@@ -31,12 +33,13 @@ def send(processed_data: dict) -> dict:
         # fan-out
         for url in urls:
             # send data to the next module
-            sending_timestamp = time.time()
             response = post(url=url, json=processed_data)
 
             if response.status_code != 200:
                 # on sending error
-                log.debug(f"Failed sending data to {url} | Response: {response.status_code} {response.reason}")
+                log.debug(
+                    f"Failed sending data to {url} | Response: {response.status_code} {response.reason}"
+                )
 
                 failed_responses.append(
                     {
@@ -47,13 +50,18 @@ def send(processed_data: dict) -> dict:
                 )
             else:
                 # on sending success
-                log.debug(f"Successfully sent data to url {url} | Response: {response.status_code} {response.reason}")
+                log.debug(
+                    f"Successfully sent data to url {url} | Response: {response.status_code} {response.reason}"
+                )
 
         if failed_responses:
             # info on failed responses
             error_msg = "Failed sending data to the following urls: "
             for resp in failed_responses:
-                error_msg = error_msg + f"{resp['url']} - {resp['status_code']}: {resp['message']}. "
+                error_msg = (
+                    error_msg
+                    + f"{resp['url']} - {resp['status_code']}: {resp['message']}. "
+                )
 
             return error_msg
 
@@ -62,6 +70,6 @@ def send(processed_data: dict) -> dict:
     except (
         exceptions.RequestException,
         exceptions.ConnectionError,
-        exceptions.ConnectTimeout
+        exceptions.ConnectTimeout,
     ) as e:
         return f"Exception when sending data to the next module: {e}"

@@ -11,6 +11,7 @@ from weeve_modules.listener_callback_function import set_listener_callback_funct
 # set up logging
 log = weeve_logger("weeve_modules.listener")
 
+
 def listener(callback_function: object = None) -> None:
     """
     Set up a listener to weeve intercontainer communication and save a user defined callback function where received data by this module is passed to for further processing.
@@ -26,18 +27,17 @@ def listener(callback_function: object = None) -> None:
         getenv("WEEVE_MODULE_NAME"),
         getenv("WEEVE_INGRESS_HOST"),
         getenv("WEEVE_INGRESS_PORT"),
-        getenv("WEEVE_EGRESS_URLS")
+        getenv("WEEVE_EGRESS_URLS"),
     )
 
     if not callback_function:
-        sys.exit("Error: callback_function is None. Please provide a valid callback function argument.")
+        sys.exit(
+            "Error: callback_function is None. Please provide a valid callback function argument."
+        )
 
     set_listener_callback_function(callback_function)
 
     # start the server
     run(
-        host=getenv("WEEVE_INGRESS_HOST"),
-        port=getenv("WEEVE_INGRESS_PORT"),
-        quiet=True
+        host=getenv("WEEVE_INGRESS_HOST"), port=getenv("WEEVE_INGRESS_PORT"), quiet=True
     )
-

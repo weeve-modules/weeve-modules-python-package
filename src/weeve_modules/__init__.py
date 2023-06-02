@@ -7,7 +7,7 @@ from .logger import initialize_logging, weeve_logger
 initialize_logging()
 
 # initialize HTTP POST endpoint for incoming data
-from weeve_modules.request_handler import request_handler
+from .request_handler import _request_handler
 
 from .send import send
 from .listener import listener

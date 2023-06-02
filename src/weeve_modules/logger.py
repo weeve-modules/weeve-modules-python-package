@@ -21,13 +21,15 @@ log_levels = {
     "INFO": logging.INFO,
     "WARNING": logging.WARNING,
     "ERROR": logging.ERROR,
-    "CRITICAL": logging.CRITICAL
+    "CRITICAL": logging.CRITICAL,
 }
+
 
 class JSONFormatter(logging.Formatter):
     """
     Create logging Formater subclass to represent weeve custom JSON logging format.
     """
+
     def format(self, record: logging.LogRecord) -> str:
         """
         Defines weeve custom JSON logging format.
@@ -40,11 +42,12 @@ class JSONFormatter(logging.Formatter):
             "timestamp": self.formatTime(record),
             "level": record.levelname,
             "filename": record.filename,
-            "message": record.getMessage()
+            "message": record.getMessage(),
         }
 
         return json.dumps(log_data)
-    
+
+
 def initialize_logging() -> None:
     """
     Intialize weeve custom logging.
@@ -59,10 +62,8 @@ def initialize_logging() -> None:
     logHandler = logging.StreamHandler()
     logHandler.setFormatter(JSONFormatter())
 
-    logging.basicConfig(
-        level=log_level,
-        handlers=[logHandler]
-    )
+    logging.basicConfig(level=log_level, handlers=[logHandler])
+
 
 def weeve_logger(logger_name: str) -> logging.Logger:
     """

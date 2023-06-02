@@ -23,5 +23,5 @@
         "temp_fahrenheit": 56.3,
         "weather": "sunny"
     },
-    "send_response": ""
+    "err_msg": ""
 }
