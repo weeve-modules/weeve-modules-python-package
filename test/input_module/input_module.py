@@ -44,8 +44,8 @@ if __name__ == "__main__":
 
     log.info(
         "%s running with end-point set to %s",
-        getenv("WEEVE_MODULE_NAME"),
-        getenv("WEEVE_EGRESS_URLS"),
+        getenv("MODULE_NAME"),
+        getenv("EGRESS_URLS"),
     )
 
     # start the server

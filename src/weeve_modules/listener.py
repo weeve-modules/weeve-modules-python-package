@@ -24,10 +24,10 @@ def listener(callback_function: object = None) -> None:
 
     log.info(
         "%s running on %s at port %s with end-point set to %s",
-        getenv("WEEVE_MODULE_NAME"),
-        getenv("WEEVE_INGRESS_HOST"),
-        getenv("WEEVE_INGRESS_PORT"),
-        getenv("WEEVE_EGRESS_URLS"),
+        getenv("MODULE_NAME"),
+        getenv("INGRESS_HOST"),
+        getenv("INGRESS_PORT"),
+        getenv("EGRESS_URLS"),
     )
 
     if not callback_function:
@@ -39,5 +39,5 @@ def listener(callback_function: object = None) -> None:
 
     # start the server
     run(
-        host=getenv("WEEVE_INGRESS_HOST"), port=getenv("WEEVE_INGRESS_PORT"), quiet=True
+        host=getenv("INGRESS_HOST"), port=getenv("INGRESS_PORT"), quiet=True
     )

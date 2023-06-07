@@ -54,8 +54,8 @@ def initialize_logging() -> None:
     """
 
     log_level = (
-        log_levels[getenv("WEEVE_LOG_LEVEL")]
-        if getenv("WEEVE_LOG_LEVEL") in log_levels
+        log_levels[getenv("LOG_LEVEL")]
+        if getenv("LOG_LEVEL") in log_levels
         else logging.INFO
     )
 

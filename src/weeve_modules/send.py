@@ -24,7 +24,7 @@ def send(processed_data: dict) -> str:
     try:
         # parse egress urls for fanout
         urls = [
-            url.strip() for url in getenv("WEEVE_EGRESS_URLS").strip(",").split(",")
+            url.strip() for url in getenv("EGRESS_URLS").strip(",").split(",")
         ]
 
         # for collecting REST API POST responses

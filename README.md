@@ -21,11 +21,11 @@ These environment variables are set by the weeve Agent on the edge-node. In orde
 
 | Environment Variables | type   | Description                                                                                                                                                                 |
 | --------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| WEEVE_LOG_LEVEL       | string | Allowed log levels: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`. Refer to [logging levels package documentation](https://docs.python.org/3/library/logging.html#levels). |
-| WEEVE_MODULE_NAME     | string | Name of the module.                                                                                                                                                         |
-| WEEVE_INGRESS_HOST    | string | Host to which data will be received.                                                                                                                                        |
-| WEEVE_INGRESS_PORT    | string | Port to which data will be received.                                                                                                                                        |
-| WEEVE_EGRESS_URLS     | string | HTTP ReST endpoint for the next modules.                                                                                                                                    |
+| LOG_LEVEL       | string | Allowed log levels: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`. Refer to [logging levels package documentation](https://docs.python.org/3/library/logging.html#levels). |
+| MODULE_NAME     | string | Name of the module.                                                                                                                                                         |
+| INGRESS_HOST    | string | Host to which data will be received.                                                                                                                                        |
+| INGRESS_PORT    | string | Port to which data will be received.                                                                                                                                        |
+| EGRESS_URLS     | string | HTTP ReST endpoint for the next modules.                                                                                                                                    |
 
 
 ## weeve_modules.listener()
