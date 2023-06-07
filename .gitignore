@@ -4,7 +4,8 @@
 # vscode specific
 .vscode/*.log
 
-# test artifacts
+# artifacts
+dist/
+__pycache__
 .pytest_cache
-test/__pycache__
 test/artifacts
